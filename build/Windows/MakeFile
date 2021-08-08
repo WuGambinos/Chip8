@@ -1,2 +1,2 @@
 default:
-	gcc main.c -o main -O1 -Wall -std=c99 -Wno-missing-braces -I ../../include/ -L ../../lib/ -lraylib -lopengl32 -lgdi32 -lwinmm
+	gcc ../../src/main.c ../../src/emu.c -o main -O1 -Wall -std=c99 -Wno-missing-braces -I ../../include/ -L ../../lib/ -lraylib -lopengl32 -lgdi32 -lwinmm
