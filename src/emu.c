@@ -367,12 +367,23 @@ void emulateCycle(Chip8* s)
                 //0x00E0: Clears the Screen
                 case 0x0000:
                     //Execute Code
+                    for(int i = 0; i < (64 * 32); i++)
+                    {
+                        s -> display[i] = 0;
+
+                    }
+                    s -> drawFlag = 1;
                     s -> pc += 2;
                     break;
 
                 case 0x000E: //0x00EE: Return
+                    /*
                     s -> sp += 2;
                     s -> pc += (s -> memory[s -> sp] << 8) | s-> memory[s -> sp + 1];
+                    */
+                    s -> sp = s -> sp - 1;
+                    s -> pc = s -> stack[s -> pc];
+                    s -> pc += 2;
                     break;
 
                     default:
