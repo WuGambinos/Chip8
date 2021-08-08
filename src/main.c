@@ -27,7 +27,7 @@ int main(argc, char **argv)
 }*/
 int main(void) {
     printf("Hello, World!\n");
-    char winPath[] = "C:/Users/lajua/Desktop/Programming/Chip8/roms/c8_test.c8";
+    char winPath[] = "C:/Users/lajua/Desktop/Programming/Chip8/src/roms/RPS.ch8";
     char macPath[] = "/Users/lajuanstation/Desktop/Chip8C/src/roms/RPS.ch8";
     char archPath[] = "/home/lajuan/Programming/Chip8C/roms/Fishie.ch8";
 
@@ -36,7 +36,7 @@ int main(void) {
 
     if(f == NULL)
     {
-        printf("Error: Couldn't open rom%s\n");
+        printf("Error: Couldn't open rom\n");
         exit(1);
     }
 
@@ -63,14 +63,14 @@ int main(void) {
     */
 
 
-/*
+/* 
     while(chip -> pc < fsize+0x200)
     {
         printf("%04X: ", (chip -> pc) - 0x200);
         emulateCycle(chip);
     }
+ */
 
-*/
 
 
     //Disassemble
@@ -86,6 +86,8 @@ int main(void) {
     }
 */
 
+
+//RAYLIB
 InitWindow (820, 320, "Chip8 Virtual Machine");
 SetTargetFPS(60);
 
@@ -107,6 +109,7 @@ SetTargetFPS(60);
         EndDrawing();
     }
     CloseWindow();
+    
 
 
 
