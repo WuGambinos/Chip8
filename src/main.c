@@ -27,7 +27,7 @@ int main(argc, char **argv)
 }*/
 int main(void) {
     printf("Hello, World!\n");
-    char winPath[] = "C:/Users/lajua/Desktop/Programming/Chip8/src/roms/RPS.ch8";
+    char winPath[] = "C:/Users/lajua/Desktop/Programming/Chip8/src/roms/test_opcode.ch8";
     char macPath[] = "/Users/lajuanstation/Desktop/Chip8C/src/roms/RPS.ch8";
     char archPath[] = "/home/lajuan/Programming/Chip8C/roms/Fishie.ch8";
 
@@ -52,15 +52,16 @@ int main(void) {
     loadProgram(chip, f ,fsize);
 
 
-/*
-    for(int i = 0; i < 18; i++)
+
+    for(int i = 0; i < 60; i++)
     {
+        printf("PC: %X: ", (chip -> pc));
         emulateCycle(chip);
 
     }
 
     printState(chip);
-    */
+
 
 
 /* 
@@ -87,7 +88,7 @@ int main(void) {
 */
 
 
-//RAYLIB
+/* //RAYLIB
 InitWindow (820, 320, "Chip8 Virtual Machine");
 SetTargetFPS(60);
 
@@ -104,12 +105,13 @@ SetTargetFPS(60);
             drawGraphics(chip);
         }
 
+        DrawText("Hello World", 700, 25, 15, RED);
 
 
         EndDrawing();
     }
     CloseWindow();
-    
+     */
 
 
 
