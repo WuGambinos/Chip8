@@ -27,16 +27,16 @@ int main(argc, char **argv)
 }*/
 int main(void) {
     printf("Hello, World!\n");
-    char winPath[] = "C:/Users/lajua/Desktop/Programming/Chip8C/roms/c8_test.c8";
+    char winPath[] = "C:/Users/lajua/Desktop/Programming/Chip8/roms/c8_test.c8";
     char macPath[] = "/Users/lajuanstation/Desktop/Chip8C/src/roms/RPS.ch8";
     char archPath[] = "/home/lajuan/Programming/Chip8C/roms/Fishie.ch8";
 
 
-    FILE *f = fopen(macPath, "rb");
+    FILE *f = fopen(winPath, "rb");
 
     if(f == NULL)
     {
-        printf("Error: Couldn't open %s\n", "RPS.ch8");
+        printf("Error: Couldn't open rom%s\n");
         exit(1);
     }
 
