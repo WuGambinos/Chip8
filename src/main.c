@@ -5,29 +5,9 @@
 #include "emu.h"
 #include "raylib.h"
 
-
-
-/*
-int main(argc, char **argv)
-{
-    //Set Up Render System and register inpupt callbakcs
-
-    //Initialize the Chip8 system and load game into memory
-
-    //Emulation loop
-
-    for(;;)
-    {
-        //Emulate one cycle
-
-        //If draw flag set, update screen
-
-        //Store key press state (Press and Release)
-    }
-}*/
 int main(int argc, char **argv) {
 
-
+    //Store Strings for Debugging
     char string[100];
 
     char winPath[] = "C:/Users/lajua/Desktop/Programming/Chip8/src/roms/tombstontipp.ch8";
@@ -35,6 +15,7 @@ int main(int argc, char **argv) {
     char archPath[] = "/home/lajuan/Programming/Chip8C/roms/Fishie.ch8";
 
 
+    //Open File
     FILE *f = fopen(argv[1], "rb");
 
     //Halt Program if file not found
