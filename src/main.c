@@ -37,6 +37,7 @@ int main(void) {
 
     FILE *f = fopen(winPath, "rb");
 
+    //Halt Program if file not found
     if(f == NULL)
     {
         printf("Error: Couldn't open rom\n");
@@ -111,10 +112,17 @@ SetTargetFPS(120);
         }
 
         DrawText("Hello World", 700, 25, 15, WHITE);
-        sprintf(string, "PC: %d", chip -> pc);
-
+        sprintf(string, "PC: %X", chip -> pc);
         DrawText(string, 700, 40, 10, WHITE);
 
+        sprintf(string, "SP: %X", chip -> sp);
+        DrawText(string, 700, 55,10, WHITE);
+
+        for(int i = 0; i < 0xF; i++)
+        {
+            sprintf(string, "V[%X] = %X", i, chip -> V[i]);
+            DrawText(string, 700, 70 + (i * 10), 10, WHITE);
+        }
 
 
         EndDrawing();
