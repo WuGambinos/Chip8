@@ -53,6 +53,7 @@ int main(void) {
 
 
 
+/*
     for(int i = 0; i < 60; i++)
     {
         printf("PC: %X: ", (chip -> pc));
@@ -62,7 +63,7 @@ int main(void) {
 
     printState(chip);
 
-
+*/
 
 /* 
     while(chip -> pc < fsize+0x200)
@@ -88,7 +89,7 @@ int main(void) {
 */
 
 
-/* //RAYLIB
+//RAYLIB
 InitWindow (820, 320, "Chip8 Virtual Machine");
 SetTargetFPS(60);
 
@@ -111,7 +112,7 @@ SetTargetFPS(60);
         EndDrawing();
     }
     CloseWindow();
-     */
+    
 
 
 

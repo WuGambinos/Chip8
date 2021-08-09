@@ -381,8 +381,8 @@ void emulateCycle(Chip8* s)
                     s -> sp += 2;
                     s -> pc += (s -> memory[s -> sp] << 8) | s-> memory[s -> sp + 1];
                     */
-                    s -> sp = s -> sp - 1;
-                    s -> pc = s -> stack[s -> pc];
+                    (s -> sp)--;
+                    s -> pc = s -> stack[s -> sp];
                     s -> pc += 2;
                     break;
 
@@ -406,7 +406,7 @@ void emulateCycle(Chip8* s)
 
         case 0x2000:
             s -> stack[s -> sp] = s -> pc;
-            ++(s -> sp);
+            (s -> sp)++;
             s -> pc = opcode & 0x0FFF;
             break;
 
