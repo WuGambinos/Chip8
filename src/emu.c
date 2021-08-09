@@ -392,6 +392,148 @@ void Op7(Chip8 *s, uint16_t opcode)
         s -> pc += 2;
 }
 
+void Op8(Chip8 *s, uint16_t opcode)
+{
+
+    switch(opcode & 0x000F)
+    {
+
+        case 0x0000:
+        {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            uint8_t y = (opcode & 0x00F0) >> 4;
+            s -> V[x] = s -> V[y];
+            s -> pc += 2;
+        }
+        break;
+
+        //VX = VX | VY
+        case 0x0001:
+        {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            uint8_t y = (opcode & 0x00F0) >> 4;
+            s -> V[x] |= s -> V[y];
+            s -> pc += 2;
+        }
+        break;
+
+        //VX = VX & VY
+        case 0x0002:
+        {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            uint8_t y = (opcode & 0x00F0) >> 4;
+            s -> V[x] &= s -> V[y];
+            s -> pc += 2;
+        }
+        break;
+
+        // VX = VX ^ VY;
+        case 0x0003:
+        {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            uint8_t y = (opcode & 0x00F0) >> 4;
+            s -> V[x] ^= s -> V[y];
+            s -> pc += 2;
+        }
+        break;
+
+        //Add
+        case 0x0004:
+        {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            uint8_t y = (opcode & 0x00F0) >> 4;
+
+            //Check if y > 255 - x
+            if(s -> V[y] > (0xFF - s -> V[x]))
+            {
+                //Set carry
+                s -> V[0xF] = 1;
+            }
+            else
+            {
+                //Clear Carry
+                s -> V[0xF] = 0;
+            }
+            //V[x] += V[y]
+            s -> V[x] += s -> V[y];
+            s -> pc += 2;
+        }
+        break;
+
+        //Sub
+        case 0x0005:
+        {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            uint8_t y = (opcode & 0x00F0) >> 4;
+            //Check if y > x
+            if(s -> V[y] > ( s -> V[x]))
+            {
+                //Set Borrow
+                s -> V[0xF] = 1;
+            }
+
+            else
+            {
+                s -> V[0xF] = 0;
+            }
+            //V[x] -= V[y]
+            s -> V[x] -= s -> V[y];
+            s -> pc += 2;
+        }
+        break;
+
+        //Right Shift
+        case 0x0006:
+        {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            uint8_t y = (opcode & 0x00F0) >> 4;
+            s -> V[x] = s -> V[y] >> 1;
+            s -> pc += 2;
+        }
+        break;
+
+        //VX = VY - VX
+        case 0x0007:
+        {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            uint8_t y = (opcode & 0x00F0) >> 4;
+
+            //if x > y
+
+
+            if(s -> V[x] > ( s -> V[y]))
+            {
+                //Set Borrow
+                s -> V[0xF] = 1;
+            }
+
+            else
+            {
+                s -> V[0xF] = 0;
+            }
+            //V[x] -= V[y]
+            s -> V[x] = (s -> V[y] - s -> V[x]);
+            s -> pc += 2;
+
+
+        }
+        break;
+
+        //Left Shift
+        case 0x000E:
+        {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            uint8_t y = (opcode & 0x00F0) >> 4;
+            s -> V[x] = s -> V[y] << 1;
+            s -> pc += 2;
+
+        }
+        break;
+    }
+}
+
+
+
 //Fetch opcode
 //decode opcode
 //execute opcode
@@ -454,144 +596,10 @@ void emulateCycle(Chip8* s)
 
         //Set VX to VY
         case 0x8000:
-
-
-            switch(opcode & 0x000F)
-            {
-
-                case 0x0000:
-                {
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-                    uint8_t y = (opcode & 0x00F0) >> 4;
-                    s -> V[x] = s -> V[y];
-                    s -> pc += 2;
-                }
-                break;
-
-                //VX = VX | VY
-                case 0x0001:
-                {
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-                    uint8_t y = (opcode & 0x00F0) >> 4;
-                    s -> V[x] |= s -> V[y];
-                    s -> pc += 2;
-                }
-                break;
-
-                //VX = VX & VY
-                case 0x0002:
-                {
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-                    uint8_t y = (opcode & 0x00F0) >> 4;
-                    s -> V[x] &= s -> V[y];
-                    s -> pc += 2;
-                }
-                break;
-
-                // VX = VX ^ VY;
-                case 0x0003:
-                {
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-                    uint8_t y = (opcode & 0x00F0) >> 4;
-                    s -> V[x] ^= s -> V[y];
-                    s -> pc += 2;
-                }
-                break;
-
-                //Add
-                case 0x0004:
-                {
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-                    uint8_t y = (opcode & 0x00F0) >> 4;
-
-                    //Check if y > 255 - x
-                    if(s -> V[y] > (0xFF - s -> V[x]))
-                    {
-                        //Set carry
-                        s -> V[0xF] = 1;
-                    }
-                    else
-                    {
-                        //Clear Carry
-                        s -> V[0xF] = 0;
-                    }
-                    //V[x] += V[y]
-                    s -> V[x] += s -> V[y];
-                    s -> pc += 2;
-                }
-                break;
-
-                //Sub
-                case 0x0005:
-                {
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-                    uint8_t y = (opcode & 0x00F0) >> 4;
-                    //Check if y > x
-                    if(s -> V[y] > ( s -> V[x]))
-                    {
-                        //Set Borrow
-                        s -> V[0xF] = 1;
-                    }
-
-                    else
-                    {
-                        s -> V[0xF] = 0;
-                    }
-                    //V[x] -= V[y]
-                    s -> V[x] -= s -> V[y];
-                    s -> pc += 2;
-                }
-                break;
-
-                //Right Shift
-                case 0x0006:
-                {
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-                    uint8_t y = (opcode & 0x00F0) >> 4;
-                    s -> V[x] = s -> V[y] >> 1;
-                    s -> pc += 2;
-                }
-                break;
-
-                //VX = VY - VX
-                case 0x0007:
-                {
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-                    uint8_t y = (opcode & 0x00F0) >> 4;
-
-                    //if x > y
-
-
-                    if(s -> V[x] > ( s -> V[y]))
-                    {
-                        //Set Borrow
-                        s -> V[0xF] = 1;
-                    }
-
-                    else
-                    {
-                        s -> V[0xF] = 0;
-                    }
-                    //V[x] -= V[y]
-                    s -> V[x] = (s -> V[y] - s -> V[x]);
-                    s -> pc += 2;
-
-
-                }
-                break;
-
-                //Left Shift
-                case 0x000E:
-                {
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-                    uint8_t y = (opcode & 0x00F0) >> 4;
-                    s -> V[x] = s -> V[y] << 1;
-                    s -> pc += 2;
-
-                }
-                break;
-            }
+            Op8(s, opcode);
             break;
+
+
 
         //Skip if VX != VY
         case 0x9000:
