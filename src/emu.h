@@ -60,5 +60,6 @@ void printTimers(Chip8* s);
 void printStack(Chip8* s);
 void printState(Chip8* s);
 void drawGraphics(Chip8* s);
+void checkKeys(Chip8 *s);
 
 #endif //CHIP8_CHIP8_H
