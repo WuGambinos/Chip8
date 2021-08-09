@@ -295,17 +295,101 @@ void Op0(Chip8* s, uint16_t opcode)
         //0x00E0: Clears the Screen
         case 0x0000:
             //Execute Code
+            for(int i = 0; i < (64 * 32); i++)
+            {
+                s -> display[i] = 0;
+            }
+
+            s -> drawFlag = 1;
             s -> pc += 2;
             break;
 
         case 0x000E: //0x00EE: Return
-            s -> sp += 2;
-            s -> pc += (s -> memory[s -> sp] << 8) | s-> memory[s -> sp + 1];
+                (s -> sp)--;
+                s -> pc = s -> stack[s -> sp];
+                s -> pc += 2;
             break;
 
         default:
             printf("Unknown opcode [0x0000]L 0x%X\n",opcode);
     }
+}
+
+void Op1(Chip8 *s, uint16_t opcode)
+{
+    if((opcode & 0x0FFF) == s -> pc)
+        {
+            s -> halt = 1;
+            printf("INFINITE LOOP\n");
+            //exit(1);
+        }
+
+        s -> pc = opcode & 0x0FFF;
+
+}
+
+void Op2(Chip8 *s, uint16_t opcode)
+{
+        s -> stack[s -> sp] = s -> pc;
+        (s -> sp)++;
+        s -> pc = opcode & 0x0FFF;
+}
+
+void Op3(Chip8 *s, uint16_t opcode)
+{
+        uint8_t x = (opcode & 0x0F00) >> 8;
+        if(s -> V[x] == (opcode & 0x00FF))
+        {
+            s -> pc += 4;
+        } else
+        {
+            s -> pc += 2;
+        }
+
+}
+
+void Op4(Chip8 *s, uint16_t opcode)
+{
+        uint8_t x = (opcode & 0x0F00) >> 8;
+        if(s -> V[x] != (opcode & 0x00FF))
+        {
+            s -> pc += 4;
+        } else
+        {
+            s -> pc += 2;
+        }
+
+}
+
+void Op5(Chip8 *s, uint16_t opcode)
+{
+        uint8_t x = (opcode & 0x0F00) >> 8;
+        uint8_t y = (opcode & 0x00F0) >> 4;
+
+        
+        if(s -> V[x] == s -> V[y])
+        {
+            s -> pc += 4;
+        }
+
+        else
+        {
+            s -> pc += 2;
+        }
+}
+
+void Op6(Chip8 *s, uint16_t opcode)
+{
+        uint8_t x = (opcode & 0x0F00) >> 8;;
+        s -> V[x] = opcode & 0x00FF;
+        s -> pc += 2;
+}
+
+void Op7(Chip8 *s, uint16_t opcode)
+{
+        uint8_t x = (opcode & 0x0F00) >> 8;
+        s -> V[x] += opcode & 0x00FF;
+        s -> pc += 2;
 }
 
 //Fetch opcode
@@ -326,6 +410,9 @@ void emulateCycle(Chip8* s)
     switch(firstByte)
     {
         case 0x0000:
+            Op0(s, opcode);
+            break;
+        /*
             //Get Last 4 bits Ex. 00EE, grabs the far Right Digit
             switch(opcode & 0x000F)
             {
@@ -342,10 +429,7 @@ void emulateCycle(Chip8* s)
                     break;
 
                 case 0x000E: //0x00EE: Return
-                    /*
-                    s -> sp += 2;
-                    s -> pc += (s -> memory[s -> sp] << 8) | s-> memory[s -> sp + 1];
-                    */
+
                     (s -> sp)--;
                     s -> pc = s -> stack[s -> sp];
                     s -> pc += 2;
@@ -355,9 +439,14 @@ void emulateCycle(Chip8* s)
                         printf("Unknown opcode [0x0000]L 0x%X\n",opcode);
             }
             break;
+            */
 
         //Jump to NNN
         case 0x1000:
+            Op1(s, opcode);
+            break;
+
+            /*
 
             if((opcode & 0x0FFF) == s -> pc)
             {
@@ -368,16 +457,26 @@ void emulateCycle(Chip8* s)
 
             s -> pc = opcode & 0x0FFF;
             break;
+            */
+            
 
         case 0x2000:
+            Op2(s, opcode);
+            break;
+            /*
             s -> stack[s -> sp] = s -> pc;
             (s -> sp)++;
             s -> pc = opcode & 0x0FFF;
             break;
+            */
 
         //Skip if VX == NN
         case 0x3000:
+            Op3(s, opcode);
+            break;
+        /*
         {
+            
             uint8_t x = (opcode & 0x0F00) >> 8;
             if(s -> V[x] == (opcode & 0x00FF))
             {
@@ -386,11 +485,16 @@ void emulateCycle(Chip8* s)
             {
                 s -> pc += 2;
             }
+            
         }
         break;
+        */
 
         //Skip if VX != NN
         case 0x4000:
+            Op4(s, opcode);
+            break;
+        /*
         {
             uint8_t x = (opcode & 0x0F00) >> 8;
             if(s -> V[x] != (opcode & 0x00FF))
@@ -402,9 +506,14 @@ void emulateCycle(Chip8* s)
             }
         }
         break;
+        */
 
         //Skip if VX == VY
-        case 0x5000: {
+        case 0x5000: 
+            Op5(s, opcode);
+            break;
+        /*
+        {
             uint8_t x = (opcode & 0x0F00) >> 8;
             uint8_t y = (opcode & 0x00F0) >> 4;
 
@@ -420,24 +529,34 @@ void emulateCycle(Chip8* s)
             }
         }
         break;
+        */
 
             //Store NN in VX
-            case 0x6000:
-            {
+        case 0x6000:
+            Op6(s, opcode);
+            break;
+        /*
+        {
                 uint8_t x = (opcode & 0x0F00) >> 8;;
                 s -> V[x] = opcode & 0x00FF;
                 s -> pc += 2;
-            };
+        };
         break;
+        */
 
         //Add the value NN to register VX
         case 0x7000:
+            Op7(s, opcode);
+            break;
+        
+        /*
         {
             uint8_t x = (opcode & 0x0F00) >> 8;
             s -> V[x] += opcode & 0x00FF;
             s -> pc += 2;
         }
         break;
+        */
 
         //Set VX to VY
         case 0x8000:
