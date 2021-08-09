@@ -33,6 +33,182 @@ Chip8* InitChip8(void)
     return s;
 }
 
+void checkKeys(Chip8 *s)
+{
+    if(IsKeyPressed(KEY_ONE) || IsKeyDown(KEY_ONE))
+    {
+        s -> key[0x1] = 1;
+    }
+
+    else
+    {
+        s -> key[0x1] = 0;
+
+    }
+
+
+
+    if(IsKeyPressed(KEY_TWO) || IsKeyDown(KEY_TWO))
+    {
+        s -> key[0x2] = 1;
+
+    }
+
+    else
+    {
+        s -> key[0x2] = 0;
+
+    }
+
+    if(IsKeyPressed(KEY_THREE) || IsKeyDown(KEY_THREE))
+    {
+        s -> key[0x3] = 1;
+    }
+
+    else
+    {
+        s -> key[0x3] = 0;
+    }
+
+    if(IsKeyPressed(KEY_FOUR) || IsKeyDown(KEY_FOUR))
+    {
+        s -> key[0xC] = 1;
+
+    }
+
+    else
+    {
+        s -> key[0xC] = 0;
+
+    }
+
+    if(IsKeyPressed(KEY_Q) || IsKeyDown(KEY_Q))
+    {
+        s -> key[0x4] = 1;
+    }
+
+    else
+    {
+        s -> key[0x4] = 0;
+    }
+
+    if(IsKeyPressed(KEY_W) || IsKeyDown(KEY_W))
+    {
+        s -> key[0x5] = 1;
+    }
+
+    else
+    {
+        s -> key[0x5] = 0;
+    }
+
+    if(IsKeyPressed(KEY_E) || IsKeyDown(KEY_E))
+    {
+        s -> key[0x6] = 1;
+    }
+
+    else
+    {
+        s -> key[0x6] = 0;
+    }
+
+    if(IsKeyPressed(KEY_R) || IsKeyDown(KEY_R))
+    {
+        s -> key[0xD] = 1;
+    }
+
+    else
+    {
+        s -> key[0xD] = 0;
+    }
+
+    if(IsKeyPressed(KEY_A) || IsKeyDown(KEY_A))
+    {
+        s -> key[0x7] = 1;
+    }
+
+    else
+    {
+        s -> key[0x7] = 0;
+
+    }
+
+    if(IsKeyPressed(KEY_S) || IsKeyDown(KEY_S))
+    {
+        s -> key[0x8] = 1;
+
+    }
+
+    else
+    {
+        s -> key[0x8] = 0;
+
+    }
+
+    if(IsKeyPressed(KEY_D) || IsKeyDown(KEY_D))
+    {
+        s -> key[0x9] = 1;
+    }
+
+    else
+    {
+        s -> key[0x9] = 0;
+
+    }
+
+    if(IsKeyPressed(KEY_F) || IsKeyDown(KEY_F))
+    {
+        s -> key[0xE] = 1;
+    }
+
+    else
+    {
+        s -> key[0xE] = 0;
+    }
+
+    if(IsKeyPressed(KEY_Z) || IsKeyDown(KEY_Z))
+    {
+        s -> key[0xA] = 1;
+    }
+
+    else
+    {
+        s -> key[0xA] = 0;
+    }
+
+    if(IsKeyPressed(KEY_X) || IsKeyDown(KEY_X))
+    {
+        s -> key[0x0] = 1;
+    }
+
+    else
+    {
+        s -> key[0x0] = 0;
+    }
+
+    if(IsKeyPressed(KEY_C) || IsKeyDown(KEY_C))
+    {
+        s -> key[0xB] = 1;
+    }
+
+    else
+    {
+        s -> key[0xB] = 0;
+    }
+
+    if(IsKeyPressed(KEY_V) || IsKeyDown(KEY_V))
+    {
+        s -> key[0xF] = 1;
+    }
+
+    else
+    {
+        s -> key[0xF] = 0;
+    }
+
+
+}
+
 void drawGraphics(Chip8* s)
 { 
     for (int y = 0; y < 32; ++y) 

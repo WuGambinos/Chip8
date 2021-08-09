@@ -26,7 +26,10 @@ int main(argc, char **argv)
     }
 }*/
 int main(void) {
-    printf("Hello, World!\n");
+
+
+    char string[100];
+
     char winPath[] = "C:/Users/lajua/Desktop/Programming/Chip8/src/roms/spockpaperscissors.ch8";
     char macPath[] = "/Users/lajuanstation/Desktop/Chip8C/src/roms/RPS.ch8";
     char archPath[] = "/home/lajuan/Programming/Chip8C/roms/Fishie.ch8";
@@ -91,7 +94,7 @@ int main(void) {
 
 //RAYLIB
 InitWindow (820, 320, "Chip8 Virtual Machine");
-SetTargetFPS(60);
+SetTargetFPS(120);
 
     while(!WindowShouldClose()) {
         BeginDrawing();
@@ -106,7 +109,11 @@ SetTargetFPS(60);
             drawGraphics(chip);
         }
 
-        DrawText("Hello World", 700, 25, 15, RED);
+        DrawText("Hello World", 700, 25, 15, WHITE);
+        sprintf(string, "PC: %d", chip -> pc);
+
+        DrawText(string, 700, 40, 10, WHITE);
+
 
 
         EndDrawing();
