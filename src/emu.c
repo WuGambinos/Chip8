@@ -570,6 +570,208 @@ void OpC(Chip8 *s, uint16_t opcode)
 }
 
 
+void OpD(Chip8 *s, uint16_t opcode)
+{
+
+    uint8_t x = (opcode & 0x0F00) >> 8;
+    uint8_t y = (opcode & 0x00F0) >> 4;
+
+    //Height
+    uint8_t h = (opcode & 0x000F);
+
+    uint8_t pixel = 0;
+
+    s -> V[0xF] = 0;
+    for(int yline = 0; yline < h; yline++)
+    {
+        pixel = s -> memory[(s -> I) + yline];
+        for(int xline = 0; xline < 8; xline++)
+        {
+            if((pixel & (0x80 >> xline)) != 0)
+            {
+                if (s -> display[( s -> V[x] + xline + ((s -> V[y] + yline) * 64))] == 1)
+                {
+                    s -> V[0xF] = 1;
+                }
+                s -> display[(s -> V[x] + xline + ((s -> V[y] + yline) * 64))] ^= 1;
+
+            }
+        }
+    }
+
+    s -> drawFlag = 1;
+    s -> pc += 2;
+
+}
+
+void OpE(Chip8 *s, uint16_t opcode)
+{
+    switch(opcode & 0x00FF)
+    {
+        //Skip following instruction if the key corresponding to hex value
+        //currently stored in register VX is pressed
+        case 0x009E:
+        {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            if(s -> key[ s -> V[x]] != 0)
+            {
+                s -> pc += 4;
+            }
+
+            else
+            {
+                s -> pc += 2;
+            }
+        }
+            break;
+
+        //Skip following instruction if the key corresponding to hex value
+        //currently stored in register VX is not pressed
+        case 0x00A1:
+        {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+
+            if(s -> key[ s -> V[x]] == 0)
+            {
+                s -> pc += 4;
+            }
+
+            else
+            {
+                s -> pc += 2;
+            }
+        }
+            break;
+    }
+
+}
+
+void OpF(Chip8 *s, uint16_t opcode)
+{
+    switch(opcode & 0x00FF)
+    {
+        //Set VX = delay timer value.
+        case 0x0007:
+        {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            s -> V[x] = s -> delay_timer;
+
+            s -> pc += 2;
+        }
+            break;
+
+        //Wait for a key press, store the value of the key in Vx.
+        case 0x000A: {
+            int keyPress = 0;
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            for (int i = 0; i < 16; i++)
+            {
+                if( s -> key[i] != 0)
+                {
+                    s -> V[x] = i;
+                    keyPress = 1;
+                }
+            }
+            //If no keypress skip cycle and try again
+            if(!keyPress)
+            {
+                return;
+            }
+            s -> pc += 2;
+        }break;
+
+
+        //delay_timer = VX
+        case 0x0015:
+        {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            s -> delay_timer = s -> V[x];
+
+            s -> pc += 2;
+        }
+            break;
+
+        //sound_timer = VX
+        case 0x0018:
+        {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            s -> sound_timer = s -> V[x];
+
+            s -> pc += 2;
+
+        }
+            break;
+        //I += VX
+        case 0x001E:
+        {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            s -> I += s -> V[x];
+
+            s -> pc += 2;
+        }
+            break;
+
+
+        case 0x0029:
+
+            s -> pc += 2;
+            break;
+
+        //Store BCD representation of VX in memory locations I, I+1, and I+2.
+        case 0x0033: {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+
+            //Hundreds Digit
+            s -> memory[s -> I] = ((s -> V[x]) / 100) % 10;
+
+            //Tens Digit
+            s -> memory[(s -> I) + 1] = ((s -> V[x]) /10) % 10;
+
+            //Ones Digit
+            s -> memory[(s -> I) + 2] = (s -> V[x]) % 10;
+
+            s -> pc += 2;
+        }
+
+            break;
+
+        //Store registers V0 through VX in memory starting at location I.
+        case 0x0055:
+        {
+            uint8_t i = 0x00;
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            while(i <= x)
+            {
+                s -> memory[(s -> I) + i] = s -> V[i];
+                i++;
+            }
+
+            s -> pc += 2;
+
+        }
+            break;
+
+        //Read registers V0 through Vx from memory starting at location I.
+        case 0x0065:
+        {
+            uint8_t i = 0x00;
+            uint8_t x = (opcode & 0x0F00) >> 8;
+
+            while(i <= x)
+            {
+                s -> V[i] = s -> memory[(s -> I) + i];
+                i++;
+            }
+
+            s -> pc += 2;
+
+        }
+            break;
+
+    }
+}
+
+
 
 //Fetch opcode
 //decode opcode
@@ -660,207 +862,16 @@ void emulateCycle(Chip8* s)
 
         //Draws Sprite at coordinate (VX, VY)
         case 0xD000:
-        {
-            uint8_t x = (opcode & 0x0F00) >> 8;
-            uint8_t y = (opcode & 0x00F0) >> 4;
-
-            //Height
-            uint8_t h = (opcode & 0x000F);
-
-            uint8_t pixel = 0;
-
-            s -> V[0xF] = 0;
-            for(int yline = 0; yline < h; yline++)
-            {
-                pixel = s -> memory[(s -> I) + yline];
-                for(int xline = 0; xline < 8; xline++)
-                {
-                    if((pixel & (0x80 >> xline)) != 0)
-                    {
-                       if (s -> display[( s -> V[x] + xline + ((s -> V[y] + yline) * 64))] == 1)
-                       {
-                           s -> V[0xF] = 1;
-                       }
-                       s -> display[(s -> V[x] + xline + ((s -> V[y] + yline) * 64))] ^= 1;
-
-                    }
-                }
-            }
-
-            s -> drawFlag = 1;
-            s -> pc += 2;
-
-
-        }
+            OpD(s, opcode);
             break;
 
 
         case 0xE000:
-            switch(opcode & 0x00FF)
-            {
-                //Skip following instruction if the key corresponding to hex value
-                //currently stored in register VX is pressed
-                case 0x009E:
-                {
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-                    if(s -> key[ s -> V[x]] != 0)
-                    {
-                        s -> pc += 4;
-                    }
-
-                    else
-                    {
-                        s -> pc += 2;
-                    }
-                }
-                    break;
-
-                //Skip following instruction if the key corresponding to hex value
-                //currently stored in register VX is not pressed
-                case 0x00A1:
-                {
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-
-                    if(s -> key[ s -> V[x]] == 0)
-                    {
-                        s -> pc += 4;
-                    }
-
-                    else
-                    {
-                        s -> pc += 2;
-                    }
-                }
-                    break;
-            }
+            OpE(s, opcode);
             break;
 
         case 0xF000:
-        {
-            switch(opcode & 0x00FF)
-            {
-                //Set VX = delay timer value.
-                case 0x0007:
-                {
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-                    s -> V[x] = s -> delay_timer;
-
-                    s -> pc += 2;
-                }
-                    break;
-
-                //Wait for a key press, store the value of the key in Vx.
-                case 0x000A: {
-                    int keyPress = 0;
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-                    for (int i = 0; i < 16; i++)
-                    {
-                        if( s -> key[i] != 0)
-                        {
-                            s -> V[x] = i;
-                            keyPress = 1;
-                        }
-                    }
-                    //If no keypress skip cycle and try again
-                    if(!keyPress)
-                    {
-                        return;
-                    }
-                    s -> pc += 2;
-                }break;
-
-
-                //delay_timer = VX
-                case 0x0015:
-                {
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-                    s -> delay_timer = s -> V[x];
-
-                    s -> pc += 2;
-                }
-                    break;
-
-                //sound_timer = VX
-                case 0x0018:
-                {
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-                    s -> sound_timer = s -> V[x];
-
-                    s -> pc += 2;
-
-                }
-                    break;
-                //I += VX
-                case 0x001E:
-                {
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-                    s -> I += s -> V[x];
-
-                    s -> pc += 2;
-                }
-                    break;
-
-
-                case 0x0029:
-
-                    s -> pc += 2;
-                    break;
-
-                //Store BCD representation of VX in memory locations I, I+1, and I+2.
-                case 0x0033: {
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-
-                    //Hundreds Digit
-                    s -> memory[s -> I] = ((s -> V[x]) / 100) % 10;
-
-                    //Tens Digit
-                    s -> memory[(s -> I) + 1] = ((s -> V[x]) /10) % 10;
-
-                    //Ones Digit
-                    s -> memory[(s -> I) + 2] = (s -> V[x]) % 10;
-
-                    s -> pc += 2;
-                }
-
-                    break;
-
-                //Store registers V0 through VX in memory starting at location I.
-                case 0x0055:
-                {
-                    uint8_t i = 0x00;
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-                    while(i <= x)
-                    {
-                        s -> memory[(s -> I) + i] = s -> V[i];
-                        i++;
-                    }
-
-                    s -> pc += 2;
-
-                }
-                    break;
-
-                //Read registers V0 through Vx from memory starting at location I.
-                case 0x0065:
-                {
-                    uint8_t i = 0x00;
-                    uint8_t x = (opcode & 0x0F00) >> 8;
-
-                    while(i <= x)
-                    {
-                        s -> V[i] = s -> memory[(s -> I) + i];
-                        i++;
-                    }
-
-                    s -> pc += 2;
-
-                }
-                    break;
-
-            }
-        }
-
-
+            OpF(s, opcode);
             break;
 
         default:
