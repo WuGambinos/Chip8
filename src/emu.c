@@ -532,7 +532,7 @@ void Op8(Chip8 *s, uint16_t opcode)
     }
 }
 
-void Op9(Chip8 *s, int opcode)
+void Op9(Chip8 *s, uint16_t opcode)
 {
     uint8_t x = (opcode & 0x0F00) >> 8;
     uint8_t y = (opcode & 0x00F0) >> 4;
@@ -546,6 +546,27 @@ void Op9(Chip8 *s, int opcode)
         s -> pc += 2;
     }
 
+}
+
+
+void OpA(Chip8 *s, uint16_t opcode)
+{
+            //Execute Opcode
+        s -> I = opcode & 0x0FFF;
+        s -> pc += 2;
+}
+
+void OpB(Chip8 *s, uint16_t opcode)
+{
+    s -> pc = (s -> V[0]) + (opcode & 0x0FFF);
+}
+
+void OpC(Chip8 *s, uint16_t opcode)
+{
+    uint8_t x = (opcode & 0x0F00) >> 8;
+    s -> V[x] = rand() & (opcode  & 0x00FF);
+
+    s -> pc += 2;
 }
 
 
@@ -619,43 +640,22 @@ void emulateCycle(Chip8* s)
 
         //Skip if VX != VY
         case 0x9000:
-        {
-            uint8_t x = (opcode & 0x0F00) >> 8;
-            uint8_t y = (opcode & 0x00F0) >> 4;
-            if(s -> V[x] != s -> V[y])
-            {
-                s -> pc += 4;
-            }
-
-            else
-            {
-                s -> pc += 2;
-            }
-        }
+            Op9(s, opcode);
             break;
 
         // ANNN: Sets I to the address NNN
         case 0xA000:
             //Execute Opcode
-            s -> I = opcode & 0x0FFF;
-            s -> pc += 2;
+            OpA(s, opcode);
             break;
 
         //PC = V0 + NNN
         case 0xB000:
-        {
-            s -> pc = (s -> V[0]) + (opcode & 0x0FFF);
-
-        }
+            OpB(s, opcode);
             break;
 
         case 0xC000:
-        {
-            uint8_t x = (opcode & 0x0F00) >> 8;
-            s -> V[x] = rand() & (opcode  & 0x00FF);
-
-            s -> pc += 2;
-        }
+            OpC(s, opcode);
             break;
 
         //Draws Sprite at coordinate (VX, VY)
