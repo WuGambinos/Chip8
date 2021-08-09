@@ -532,6 +532,22 @@ void Op8(Chip8 *s, uint16_t opcode)
     }
 }
 
+void Op9(Chip8 *s, int opcode)
+{
+    uint8_t x = (opcode & 0x0F00) >> 8;
+    uint8_t y = (opcode & 0x00F0) >> 4;
+    if(s -> V[x] != s -> V[y])
+    {
+        s -> pc += 4;
+    }
+
+    else
+    {
+        s -> pc += 2;
+    }
+
+}
+
 
 
 //Fetch opcode
