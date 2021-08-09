@@ -558,7 +558,7 @@ void Op9(Chip8 *s, uint16_t opcode)
 
 }
 
-
+//ANNN - Set I = NNN
 void OpA(Chip8 *s, uint16_t opcode)
 {
             //Execute Opcode
@@ -566,11 +566,13 @@ void OpA(Chip8 *s, uint16_t opcode)
         s -> pc += 2;
 }
 
+//BNNN - JMP to NNN + V0
 void OpB(Chip8 *s, uint16_t opcode)
 {
     s -> pc = (s -> V[0]) + (opcode & 0x0FFF);
 }
 
+//CXKK - Set VX = (random byte) & (KK)
 void OpC(Chip8 *s, uint16_t opcode)
 {
     uint8_t x = (opcode & 0x0F00) >> 8;
@@ -580,6 +582,7 @@ void OpC(Chip8 *s, uint16_t opcode)
 }
 
 
+//DXYN - Display n-byte sprite starting at memory location I at (VX, VY), set VF = collision
 void OpD(Chip8 *s, uint16_t opcode)
 {
 
@@ -614,10 +617,12 @@ void OpD(Chip8 *s, uint16_t opcode)
 
 }
 
+
 void OpE(Chip8 *s, uint16_t opcode)
 {
     switch(opcode & 0x00FF)
     {
+        //EX9E
         //Skip following instruction if the key corresponding to hex value
         //currently stored in register VX is pressed
         case 0x009E:
@@ -635,6 +640,7 @@ void OpE(Chip8 *s, uint16_t opcode)
         }
             break;
 
+        //EXA1
         //Skip following instruction if the key corresponding to hex value
         //currently stored in register VX is not pressed
         case 0x00A1:
@@ -660,6 +666,7 @@ void OpF(Chip8 *s, uint16_t opcode)
 {
     switch(opcode & 0x00FF)
     {
+        //FX07
         //Set VX = delay timer value.
         case 0x0007:
         {
@@ -670,6 +677,7 @@ void OpF(Chip8 *s, uint16_t opcode)
         }
             break;
 
+        //FX0A
         //Wait for a key press, store the value of the key in Vx.
         case 0x000A: {
             int keyPress = 0;
@@ -691,6 +699,7 @@ void OpF(Chip8 *s, uint16_t opcode)
         }break;
 
 
+        //FX15
         //delay_timer = VX
         case 0x0015:
         {
@@ -701,6 +710,7 @@ void OpF(Chip8 *s, uint16_t opcode)
         }
             break;
 
+        //FX18
         //sound_timer = VX
         case 0x0018:
         {
@@ -711,6 +721,8 @@ void OpF(Chip8 *s, uint16_t opcode)
 
         }
             break;
+
+        //FX1E
         //I += VX
         case 0x001E:
         {
@@ -722,11 +734,14 @@ void OpF(Chip8 *s, uint16_t opcode)
             break;
 
 
+        //FX29
+        //Set I = locatoni of sprite for digit VX
         case 0x0029:
 
             s -> pc += 2;
             break;
 
+        //FX33
         //Store BCD representation of VX in memory locations I, I+1, and I+2.
         case 0x0033: {
             uint8_t x = (opcode & 0x0F00) >> 8;
@@ -745,6 +760,7 @@ void OpF(Chip8 *s, uint16_t opcode)
 
             break;
 
+        //FX55
         //Store registers V0 through VX in memory starting at location I.
         case 0x0055:
         {
@@ -761,6 +777,7 @@ void OpF(Chip8 *s, uint16_t opcode)
         }
             break;
 
+        //FX65
         //Read registers V0 through Vx from memory starting at location I.
         case 0x0065:
         {
