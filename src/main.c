@@ -102,6 +102,7 @@ SetTargetFPS(120);
         ClearBackground (BLUE);
 
         emulateCycle(chip);
+        checkKeys(chip);
         		
         // If the draw flag is set update the screen
 		if (chip -> drawFlag == 1)
