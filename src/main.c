@@ -27,7 +27,7 @@ int main(argc, char **argv)
 }*/
 int main(void) {
     printf("Hello, World!\n");
-    char winPath[] = "C:/Users/lajua/Desktop/Programming/Chip8/src/roms/test_opcode.ch8";
+    char winPath[] = "C:/Users/lajua/Desktop/Programming/Chip8/src/roms/spockpaperscissors.ch8";
     char macPath[] = "/Users/lajuanstation/Desktop/Chip8C/src/roms/RPS.ch8";
     char archPath[] = "/home/lajuan/Programming/Chip8C/roms/Fishie.ch8";
 

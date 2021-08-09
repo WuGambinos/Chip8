@@ -809,13 +809,13 @@ void emulateCycle(Chip8* s)
                     uint8_t x = (opcode & 0x0F00) >> 8;
 
                     //Hundreds Digit
-                    s -> memory[s -> I] = (x / 100) % 10;
+                    s -> memory[s -> I] = ((s -> V[x]) / 100) % 10;
 
                     //Tens Digit
-                    s -> memory[(s -> I) + 1] = (x/10) % 10;
+                    s -> memory[(s -> I) + 1] = ((s -> V[x]) /10) % 10;
 
                     //Ones Digit
-                    s -> memory[(s -> I) + 1] = x % 10;
+                    s -> memory[(s -> I) + 2] = (s -> V[x]) % 10;
 
                     s -> pc += 2;
                 }
