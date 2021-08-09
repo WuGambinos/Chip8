@@ -25,7 +25,7 @@ int main(argc, char **argv)
         //Store key press state (Press and Release)
     }
 }*/
-int main(void) {
+int main(int argc, char **argv) {
 
 
     char string[100];
@@ -35,7 +35,7 @@ int main(void) {
     char archPath[] = "/home/lajuan/Programming/Chip8C/roms/Fishie.ch8";
 
 
-    FILE *f = fopen(winPath, "rb");
+    FILE *f = fopen(argv[1], "rb");
 
     //Halt Program if file not found
     if(f == NULL)
