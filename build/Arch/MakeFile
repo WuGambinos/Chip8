@@ -1,0 +1,2 @@
+default:
+	cc ../../src/main.c ../../src/emu.c ../../src/disassemble.c -o main -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
