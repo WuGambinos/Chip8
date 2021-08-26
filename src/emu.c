@@ -13,14 +13,26 @@ Chip8* InitChip8(void)
     //Create Chip
     Chip8* s  = (Chip8*) calloc(sizeof(Chip8), 1);
 
-    s -> pc = 0x200;    //Program counter starts at 0x200
-    s -> opcode = 0;    //Reset Current opcode
-    s -> sp = 0;        //Reset index register
-    s -> I = 0;         //Reset stack pointer
+    //Program counter starts at 0x200
+    s -> pc = 0x200;    
 
-    s -> halt = 0;      //Clear Halt Flag
+    //Reset current opcode
+    s -> opcode = 0;   
 
-    s -> drawFlag = 1;   //Clear draw flag
+    //Reset index register
+    s -> sp = 0;
+
+    //Reset stack pointer
+    s -> I = 0;
+
+    //Clear halt flag
+    s -> halt = 0;
+
+    //Clear draw flag
+    s -> drawFlag = 1;
+
+    //Allocate memory 
+    s -> memory = (uint8_t*) calloc(4096, sizeof(uint8_t));
 
     //Load fontset
     for(int i = 0; i < 0x50; i++)
