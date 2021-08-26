@@ -12,7 +12,8 @@ typedef struct Chip8
 {
 
     //Memory
-    uint8_t memory[4096];
+    //uint8_t memory[4096];
+    uint8_t* memory;
 
     //Display
     uint8_t display[64 * 32];
