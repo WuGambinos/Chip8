@@ -31,9 +31,6 @@ Chip8* InitChip8(void)
     //Clear draw flag
     s -> drawFlag = 1;
 
-    //Allocate memory 
-    s -> memory = (uint8_t*) calloc(4096, sizeof(uint8_t));
-
     //Load fontset
     for(int i = 0; i < 0x50; i++)
     {
