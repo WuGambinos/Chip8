@@ -30,6 +30,18 @@ int main(int argc, char **argv) {
     char macPath[] = "/Users/lajuanstation/Desktop/Chip8C/src/roms/RPS.ch8";
     char archPath[] = "/home/lajuan/Programming/Chip8C/roms/Fishie.ch8";
 
+    int choice;
+    printf("List of Roms\n");
+
+    printf("1. Fishie\n");
+    printf("2. RPS\n");
+    printf("3. logo\n");
+
+    printf("Pick a Number 1-3 ");
+    scanf("%d", &choice);
+
+    printf("CHOICE IS %d\n", choice);
+
 
     //Open File
     FILE *f = fopen(argv[1], "rb");
