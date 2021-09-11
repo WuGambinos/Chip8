@@ -28,7 +28,35 @@
 
 int main()
 {
-    printf("Hello World\n");
-    printf("%d\n", sizeof(Chip8));
+    bool isInMenu = true;
+    // Main game loop
+    while (!WindowShouldClose())    // Detect window close button or ESC key
+    {
+        // Update here
+        if(isInMenu)
+        {
+            if(IsKeyPressed(KEY_Q)) isInMenu = false;
+        }
+        else
+        {
+            if(IsKeyPressed(KEY_W)) isInMenu = true;
+        }
 
+        // Draw here
+        BeginDrawing();
+        if(isInMenu)
+        {
+            ClearBackground(RAYWHITE);
+            DrawText("This is the menu", 190, 200, 50, LIGHTGRAY);
+        }
+        else
+        {
+            ClearBackground(RAYWHITE);
+            DrawText("Congrats! You created your firstwindow!", 190, 200, 50, LIGHTGRAY);
+        }
+        
+        EndDrawing();
+
+    }
+    //-------
 }
