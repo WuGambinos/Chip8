@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "emu.h"
-#include "raylib.h"
+#include "../include/raylib.h"
 
 
 int main(int argc, char **argv) {
