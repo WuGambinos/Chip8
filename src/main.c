@@ -1,3 +1,19 @@
+/*
+ * =====================================================================================
+ *
+ *       Filename:  main.c
+ *
+ *    Description:  
+ *
+ *        Version:  1.0
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *         Author:  Lajuan Station 
+ *    
+ *
+ * =====================================================================================
+ */
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
