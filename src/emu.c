@@ -3,7 +3,7 @@
 //
 #include "emu.h"
 #include "font.h"
-#include "raylib.h"
+#include "../include/raylib.h"
 #include <stdio.h>
 #include <stdlib.h>
 
