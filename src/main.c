@@ -2,9 +2,9 @@
  * =====================================================================================
  *
  *       Filename:  main.c
- *
+ *          
  *    Description:  
- *
+ *          Date:   8/1/2021
  *        Version:  1.0
  *       Revision:  none
  *       Compiler:  gcc
@@ -14,6 +14,7 @@
  *
  * =====================================================================================
  */
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -37,7 +38,7 @@ int main(int argc, char **argv) {
     //Open File
     FILE *f = fopen(argv[1], "rb");
 
-    //Halt Program if file not found
+    // Halt Program if file not found 
     if(f == NULL)
     {
         printf("Error: Couldn't open rom\n");

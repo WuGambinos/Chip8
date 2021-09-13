@@ -1,6 +1,20 @@
-//
-// Created by lajua on 8/1/2021.
-//
+/*
+ * =====================================================================================
+ *
+ *       Filename:  main.c
+ *          
+ *    Description:  
+ *          Date:   8/1/2021
+ *        Version:  1.0
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *         Author:  Lajuan Station 
+ *    
+ *
+ * =====================================================================================
+ */
+
 #include "emu.h"
 #include "font.h"
 #include "../include/raylib.h"
