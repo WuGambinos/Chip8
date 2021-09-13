@@ -1,2 +1,2 @@
 default:
-	cc ../../src/main.c ../../src/emu.c ../../src/disassemble.c -o ../../main -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+	clang -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL ../../lib/libraylib.a ../../src/main.c ../../src/emu.c -o ../../mainLinux
