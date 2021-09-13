@@ -24,12 +24,15 @@
 
 int main(int argc, char **argv) {
 
+    argc = argc;
     //Store Strings for Debugging
     char string[100];
 
+    /*
     char winPath[] = "C:/Users/lajua/Desktop/Programming/Chip8/src/roms/tombstontipp.ch8";
     char macPath[] = "/Users/lajuanstation/Desktop/Chip8C/src/roms/RPS.ch8";
     char archPath[] = "/home/lajuan/Programming/Chip8C/roms/Fishie.ch8";
+    */
 
     //Open File
     FILE *f = fopen(argv[1], "rb");
