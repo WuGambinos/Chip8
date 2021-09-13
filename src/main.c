@@ -25,6 +25,7 @@
 
 int main(int argc, char **argv) {
 
+    
     argc = argc;
     //Store Strings for Debugging
     char string[100];
