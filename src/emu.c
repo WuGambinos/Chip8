@@ -21,7 +21,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//Initialize Chip-8
+/*
+ * Function: InitChip8
+ * -------------------
+ * Initializes the Chip8 System
+ * 
+ * 
+ * 
+ */
 Chip8* InitChip8(void)
 {
     //Create Chip
