@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  main.c
+ *       Filename:  disassemble.c
  *          
  *    Description:  
  *          Date:   8/1/2021
@@ -16,6 +16,18 @@
  */
 
 #include "emu.h"
+
+/* Function: DisassembleChip80p
+ * ---------------------------
+ * Disassembles a byte of opcode for the Chip8 sysetm
+ *
+ * codebuffer: buffer where opcode is stored
+ * pc: program counter
+ *
+ *
+ *
+ */
+
 void DisassembleChip8Op(uint8_t *codebuffer, int pc)
 {
     //Pointer to bytes, All CHIP-8 instructions are 2 bytes each
