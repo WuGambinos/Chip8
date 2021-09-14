@@ -1,4 +1,6 @@
 
+#ifndef CHIP8_DIS
+#define CHIP8_DIS
 
 /*
  * Function: DisassembleChip80p
@@ -8,3 +10,5 @@
  * pc: Program Counter
  */
 void DisassembleChip8Op(uint8_t *codebuffer, int pc);
+
+#endif
