@@ -20,6 +20,7 @@
 #include "../include/raylib.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "disassemble.h"
 
 /*
  * Function: InitChip8
