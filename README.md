@@ -32,3 +32,6 @@ Chip8 Interpreter written in C using Raylib for Graphics
 ```
 
 * Fishie.ch8 is just an example rom and can be replaced with any of the roms found in the roms folder
+
+## TODO
+* Fix Documentation
