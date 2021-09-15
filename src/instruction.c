@@ -209,7 +209,10 @@ void Op8(Chip8 *s, uint16_t opcode)
         {
             uint8_t x = (opcode & 0x0F00) >> 8;
             uint8_t y = (opcode & 0x00F0) >> 4;
+
+            s -> V[0xF] = s -> V[x] & 1;
             s -> V[x] = s -> V[y] >> 1;
+            
             s -> pc += 2;
         }
         break;
@@ -246,6 +249,8 @@ void Op8(Chip8 *s, uint16_t opcode)
         {
             uint8_t x = (opcode & 0x0F00) >> 8;
             uint8_t y = (opcode & 0x00F0) >> 4;
+
+            s -> V[0xF] = s -> V[x] & 0x80;
             s -> V[x] = s -> V[y] << 1;
             s -> pc += 2;
 
