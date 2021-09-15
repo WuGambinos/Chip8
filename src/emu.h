@@ -7,7 +7,7 @@
 #ifndef CHIP8_CHIP8_H
 #define CHIP8_CHIP8_H
 
-
+/* Struct which defines the Chip8 System */
 typedef struct Chip8
 {
 
@@ -51,6 +51,7 @@ typedef struct Chip8
     uint8_t drawFlag;
 
 } Chip8;
+
 
 //Function Declarations
 
@@ -137,8 +138,23 @@ void printStack(Chip8* s);
  */
 void printState(Chip8* s);
 
+/*
+ * Function: drawGraphics
+ * ----------------------
+ * Draws graphics to the screen of the Chip8
+ *
+ * s: pointer to Chip8 struct
+ */
 
 void drawGraphics(Chip8* s);
-void checkKeys(Chip8 *s);
+
+/*
+ * Function: checkKeys
+ * -------------------
+ * Checks to see which keys are currently being pressed
+ *
+ * s: pointer to Chip8 struct
+ */
+ void checkKeys(Chip8 *s);
 
 #endif //CHIP8_CHIP8_H
