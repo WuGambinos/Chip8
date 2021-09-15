@@ -1,3 +1,5 @@
+#include <stdint.h>
+#include "emu.h"
 #ifndef CHIP8_INS
 #define CHIP8_INS
 
