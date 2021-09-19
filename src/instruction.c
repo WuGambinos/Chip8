@@ -453,7 +453,7 @@ void OpF(Chip8 *s, uint16_t opcode)
 
 
         //FX29
-        //Set I = locatoni of sprite for digit VX
+        //Set I = location of sprite for digit VX
         case 0x0029:
 
             s -> pc += 2;

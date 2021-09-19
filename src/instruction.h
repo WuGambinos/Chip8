@@ -3,6 +3,18 @@
 #ifndef CHIP8_INS
 #define CHIP8_INS
 
+/*
+ * Function: Op0
+ * -------------
+ * There are Two Opcodes within this function
+ * 
+ * 00E0 - Clears Screen
+ * 
+ * 00EE - Return
+ * 
+ * s: pointer to Chip8 struct
+ * opcode: 00EN
+ */
 void Op0(Chip8* s, uint16_t opcode);
 
 /*
@@ -124,14 +136,107 @@ void Op7(Chip8 *s, uint16_t opcode);
  * 8XYE - Store value of register VY shifted left by one bit in register VX
  * Set register VF to the MSB of VX prior to Shift
  */
-
 void Op8(Chip8 *s, uint16_t opcode);
+
+/*
+ * Function: Op9
+ * -------------
+ * 9XY0 - Skip if VX != VY
+ * Skips next instruction if the value in register VX doesn't equal the value in register VY
+ * 
+ * s: pointer to Chip8 struct
+ * opcode: 9XY0
+ */
 void Op9(Chip8 *s, uint16_t opcode);
+
+/*
+ * Function: OpA
+ * -------------
+ * ANNN -  Set I = NNN
+ * Store address NNN in register I
+ * 
+ * s: pointer to Chip8 struct
+ * opcode: ANNN
+ */
 void OpA(Chip8 *s, uint16_t opcode);
+
+/*
+ * Function: OpB
+ * -------------
+ * BNNN -  Jump to address NNN + V0
+ * 
+ * s: pointer to Chip8 struct
+ * opcode: BNNN
+ */
 void OpB(Chip8 *s, uint16_t opcode);
+
+/*
+ * Function: OpC
+ * -------------
+ * CXKK -  Set VX = (random byte) & (KK)
+ *
+ * 
+ * s: pointer to Chip8 struct
+ * opcode: CXKK
+ */
 void OpC(Chip8 *s, uint16_t opcode);
+
+/*
+ * Function: OpD
+ * -------------
+ * DXYN - Display n-byte sprite starting at memory location I at (VX, VY)
+ * set VF to 01 if any set pixels are changed to unset, and 00 otherwise
+ * 
+ * s: pointer to Chip8 struct
+ * opcode: ANNN
+ */
 void OpD(Chip8 *s, uint16_t opcode);
+
+/*
+ * Function: OpE
+ * -------------
+ * This function contains multiple opcodes
+ * 
+ * EX9E -  Skip next instruction if the key corresponding to hex value
+ * currently stored in register VX is pressed
+ * 
+ * 
+ * EXA1 -  Skip next instruction if the key corresponding to hex value 
+ * currently stored in register VX is not pressed
+ * 
+ * s: pointer to Chip8 struct
+ * opcode: ANNN
+ */
 void OpE(Chip8 *s, uint16_t opcode);
+
+/*
+ * Function: OpF
+ * -------------
+ * This function contains mutiple opcodes
+ * 
+ * FX07 - Store delay timer value in register VX
+ * 
+ * FX0A - Wait for key press, store the value of key in register VX
+ * 
+ * FX15 - Store value of register VX in delay timer
+ * 
+ * FX18 - Store value of register VX in sound timer
+ * 
+ * FX1E - Store value of register I + VX in register I
+ * 
+ * FX29 -  Store
+ * 
+ * FX33 - Store BCD representation of value in register VX
+ * in memory locations I, I+1, and I+2
+ * 
+ * FX55 - Store values of registers V0 through VX in memory
+ * starting at location represented by value in register I
+ * 
+ * FX65 -  Read values in registers V0 through VX from memory
+ * starting at location represented by value in register I
+ * s: pointer to Chip8 struct
+ * opcode: ANNN
+ */
 void OpF(Chip8 *s, uint16_t opcode);
 
 #endif
