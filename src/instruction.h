@@ -188,7 +188,7 @@ void OpC(Chip8 *s, uint16_t opcode);
  * set VF to 01 if any set pixels are changed to unset, and 00 otherwise
  * 
  * s: pointer to Chip8 struct
- * opcode: ANNN
+ * opcode: DXYN
  */
 void OpD(Chip8 *s, uint16_t opcode);
 
@@ -205,7 +205,7 @@ void OpD(Chip8 *s, uint16_t opcode);
  * currently stored in register VX is not pressed
  * 
  * s: pointer to Chip8 struct
- * opcode: ANNN
+ * opcode: EXNN
  */
 void OpE(Chip8 *s, uint16_t opcode);
 
@@ -224,7 +224,8 @@ void OpE(Chip8 *s, uint16_t opcode);
  * 
  * FX1E - Store value of register I + VX in register I
  * 
- * FX29 -  Store
+ * FX29 -  Store address ofo sprite data corresponding to
+ * hexadecimal digit stored in register VX
  * 
  * FX33 - Store BCD representation of value in register VX
  * in memory locations I, I+1, and I+2
@@ -234,8 +235,9 @@ void OpE(Chip8 *s, uint16_t opcode);
  * 
  * FX65 -  Read values in registers V0 through VX from memory
  * starting at location represented by value in register I
+ * 
  * s: pointer to Chip8 struct
- * opcode: ANNN
+ * opcode: FXNN
  */
 void OpF(Chip8 *s, uint16_t opcode);
 

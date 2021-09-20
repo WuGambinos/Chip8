@@ -1,6 +1,23 @@
 //
 // Created by lajua on 8/1/2021.
 //
+
+/*
+ * =====================================================================================
+ *
+ *       Filename:  emu.h
+ *          
+ *    Description:  Header file for "emu.c". It contains the struct which defines the Chip8 system.
+ *          Date:   8/1/2021
+ *        Version:  1.0
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *         Author:  Lajuan Station 
+ *    
+ *
+ * =====================================================================================
+ */
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -86,16 +103,6 @@ Chip8* InitChip8(void);
  * s: pointer to Chip8 struct
  */
 void emulateCycle(Chip8* s);
-
-/*
- * Function: DisassembleChip80p
- * ----------------------------
- * Disassembles opcode for rom of Chip8 System
- * codebuffer: buffer that holds the opcodes for the given rom
- * pc: Program Counter
- */
-void DisassembleChip8Op(uint8_t *codebuffer, int pc);
-
 
 /*
  * Function: printRegisters
