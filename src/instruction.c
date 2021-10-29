@@ -455,8 +455,12 @@ void OpF(Chip8 *s, uint16_t opcode)
         //FX29
         //Set I = location of sprite for digit VX
         case 0x0029:
-
+        {
+            uint8_t x = (opcode & 0x0F00) >> 8;
+        
+            s -> I = s -> V[x] * 5;
             s -> pc += 2;
+        }
             break;
 
         //FX33
