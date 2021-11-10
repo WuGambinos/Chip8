@@ -57,7 +57,9 @@ int main(int argc, char **argv) {
     //Load Program
     loadProgram(chip, f ,fsize);
 
-    for(int i = 0; i < 100; i++) {
+    int cycles = 0;
+    for(int i = 0; i < 30; i++) {
+        cycles = i;
         emulateCycle(chip);
     }
 
@@ -67,6 +69,8 @@ int main(int argc, char **argv) {
         }
         printf("\n");
     }
+
+    printf("CYCLES: %d", cycles+1);
 
 
 
