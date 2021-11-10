@@ -57,6 +57,17 @@ int main(int argc, char **argv) {
     //Load Program
     loadProgram(chip, f ,fsize);
 
+    for(int i = 0; i < 100; i++) {
+        emulateCycle(chip);
+    }
+
+    for(int y = 0; y < 32; y++) {
+        for(int x = 0; x < 64; x++) {
+            printf("%d", chip->display[(y*64) + x]);
+        }
+        printf("\n");
+    }
+
 
 
 /*
@@ -96,6 +107,7 @@ int main(int argc, char **argv) {
 
 
 //RAYLIB
+/*
 InitWindow (820, 320, "Chip8 Virtual Machine");
 SetTargetFPS(120);
 
@@ -130,7 +142,7 @@ SetTargetFPS(120);
         EndDrawing();
     }
     CloseWindow();
-    
+    */
 
 
 
