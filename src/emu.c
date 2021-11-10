@@ -327,7 +327,7 @@ void emulateCycle(Chip8* s)
 {
     //Opcode
     uint16_t opcode = (s -> memory[s -> pc] << 8) | (s -> memory[(s -> pc) + 1]);
-    printf("%04X\n\n", (opcode));
+    //printf("%04X\n\n", (opcode));
 
     //FirstByte of the Opcode
     uint16_t firstByte = opcode & 0xF000;

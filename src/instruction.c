@@ -1,6 +1,8 @@
 
 #include "instruction.h"
 
+int dCount = 0;
+
 void Op0(Chip8* s, uint16_t opcode)
 {
     switch((opcode & 0x000F))
@@ -303,7 +305,7 @@ void OpC(Chip8 *s, uint16_t opcode)
 //DXYN - Display n-byte sprite starting at memory location I at (VX, VY), set VF = collision
 void OpD(Chip8 *s, uint16_t opcode)
 {
-
+    dCount++;
     uint8_t x = (opcode & 0x0F00) >> 8;
     uint8_t y = (opcode & 0x00F0) >> 4;
 
@@ -332,6 +334,7 @@ void OpD(Chip8 *s, uint16_t opcode)
 
     s -> drawFlag = 1;
     s -> pc += 2;
+    printf("dCount: %d\n", dCount);
 
 }
 
