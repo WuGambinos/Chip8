@@ -1,7 +1,6 @@
 
 #include "instruction.h"
 
-int dCount = 0;
 
 void Op0(Chip8* s, uint16_t opcode)
 {
@@ -305,7 +304,6 @@ void OpC(Chip8 *s, uint16_t opcode)
 //DXYN - Display n-byte sprite starting at memory location I at (VX, VY), set VF = collision
 void OpD(Chip8 *s, uint16_t opcode)
 {
-    dCount++;
     uint8_t x = (opcode & 0x0F00) >> 8;
     uint8_t y = (opcode & 0x00F0) >> 4;
 
@@ -320,6 +318,7 @@ void OpD(Chip8 *s, uint16_t opcode)
         pixel = s -> memory[(s -> I) + yline];
         for(int xline = 0; xline < 8; xline++)
         {
+            printf("PIXEL: %X\n", pixel&(0x80>>xline));
             if((pixel & (0x80 >> xline)) != 0)
             {
                 if (s -> display[( s -> V[x] + xline + ((s -> V[y] + yline) * 64))] == 1)
@@ -334,7 +333,6 @@ void OpD(Chip8 *s, uint16_t opcode)
 
     s -> drawFlag = 1;
     s -> pc += 2;
-    printf("dCount: %d\n", dCount);
 
 }
 
