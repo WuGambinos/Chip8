@@ -312,8 +312,6 @@ void OpD(Chip8 *s, uint16_t opcode)
 
     uint8_t pixel = 0;
 
-    int count = 1;
-
     s -> V[0xF] = 0;
     for(int yline = 0; yline < h; yline++)
     {
@@ -327,9 +325,6 @@ void OpD(Chip8 *s, uint16_t opcode)
                     s -> V[0xF] = 1;
                 }
                 s -> display[(s -> V[x] + xline + ((s -> V[y] + yline) * 64))] ^= 1;
-                int d = s -> display[(s -> V[x] + xline + ((s -> V[y] + yline) * 64))];
-                printf("COUNT: %d DISPLAY: %X\n", count, d);
-                count++;
 
             }
         }
