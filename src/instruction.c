@@ -1,5 +1,5 @@
 
-#include "instruction.h"
+#include "../include/instruction.h"
 
 
 void Op0(Chip8* s, uint16_t opcode)
