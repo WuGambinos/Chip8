@@ -15,13 +15,13 @@
  * =====================================================================================
  */
 
-#include "emu.h"
-#include "instruction.h"
+#include "../include/emu.h"
+#include "../include/instruction.h"
 #include "font.h"
 #include "../include/raylib.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "disassemble.h"
+#include "../include/disassemble.h"
 
 /*
  * Function: InitChip8

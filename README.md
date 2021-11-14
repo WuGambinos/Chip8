@@ -5,7 +5,7 @@ Chip8 Interpreter written in C using Raylib for Graphics
 
 ## Setup 
 ```bash
-    git clone https://github.com/Milkdrop/Intel-8080-Emulator.git
+    git clone https://github.com/WuGambinos/chip-8.git
 ```
 
 
@@ -15,19 +15,19 @@ Chip8 Interpreter written in C using Raylib for Graphics
 
 ### Windows
 ```bash
-    cd Chip8
+    cd chip-8
     ./mainWin roms/Fishie.ch8
 ```
 
 ### Mac OS
 ```bash
-    cd Chip8
+    cd chip-8
     ./mainMac roms/Fishie.ch8
 ```
 
 ### Linux 
 ```bash
-    cd Chip8
+    cd chip-8
     ./mainLinux roms/Fishie.ch8
 ```
 
