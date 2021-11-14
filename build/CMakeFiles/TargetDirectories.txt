@@ -1,5 +1,0 @@
-/home/lajuan/Programming/chip-8/build/CMakeFiles/edit_cache.dir
-/home/lajuan/Programming/chip-8/build/CMakeFiles/package_source.dir
-/home/lajuan/Programming/chip-8/build/CMakeFiles/rebuild_cache.dir
-/home/lajuan/Programming/chip-8/build/CMakeFiles/package.dir
-/home/lajuan/Programming/chip-8/build/CMakeFiles/mainLinux.dir
