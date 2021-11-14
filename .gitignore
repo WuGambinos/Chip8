@@ -8,6 +8,7 @@ build/mainWin.dir
 build/ALL_BUILD.vcxproj
 build/ALL_BUILD.vcxproj.filters
 build/chip8.sln
+build/cmake_install.cmake
 build/CMakeCache.txt
 build/CPackConfig.cmake
 build/CPackSourceConfig.cmake
