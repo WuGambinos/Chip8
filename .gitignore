@@ -1,3 +1,22 @@
 
 #Build files
 build/CMakeFiles
+build/Debug
+build/_deps
+build/x64
+build/mainWin.dir
+build/ALL_BUILD.vcxproj
+build/ALL_BUILD.vcxproj.filters
+build/chip8.sln
+build/CMakeCache.txt
+build/CPackConfig.cmake
+build/CPackSourceConfig.cmake
+build/INSTALL.vcxproj
+build/INSTALL.vcxproj.filters
+build/mainWin.vcxproj
+build/mainWin.vcxproj.filters
+build/Makefile
+build/PACKAGE.vcxproj
+build/PACKAGE.vcxproj.filters
+build/ZERO_CHECK.vcxproj
+build/ZERO_CHECK.vcxproj.filters
