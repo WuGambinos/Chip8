@@ -30,12 +30,6 @@ int main(int argc, char **argv) {
     //Store Strings for Debugging
     char string[100];
 
-    /*
-    char winPath[] = "C:/Users/lajua/Desktop/Programming/Chip8/src/roms/tombstontipp.ch8";
-    char macPath[] = "/Users/lajuanstation/Desktop/Chip8C/src/roms/RPS.ch8";
-    char archPath[] = "/home/lajuan/Programming/Chip8C/roms/Fishie.ch8";
-    */
-
     //Open File
     FILE *f = fopen(argv[1], "rb");
 
@@ -56,42 +50,6 @@ int main(int argc, char **argv) {
 
     //Load Program
     loadProgram(chip, f ,fsize);
-
-
-/*
-    for(int i = 0; i < 60; i++)
-    {
-        printf("PC: %X: ", (chip -> pc));
-        emulateCycle(chip);
-
-    }
-
-    printState(chip);
-
-*/
-
-/* 
-    while(chip -> pc < fsize+0x200)
-    {
-        printf("%04X: ", (chip -> pc) - 0x200);
-        emulateCycle(chip);
-    }
- */
-
-
-
-    //Disassemble
-
-/*
-    int pc = 0x200;
-    //Print The Hex in the rom
-    while(pc < fsize+0x200)
-    {
-        DisassembleChip8Op(chip -> memory, pc);
-        printf("\n");
-        pc += 2;
-    }
-*/
 
 
 //RAYLIB
