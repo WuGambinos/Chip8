@@ -24,7 +24,6 @@
 
 
 int main(int argc, char **argv) {
-
     
     argc = argc;
     //Store Strings for Debugging
@@ -52,10 +51,10 @@ int main(int argc, char **argv) {
     loadProgram(chip, f ,fsize);
 
 
-//RAYLIB
+    //RAYLIB
 
-InitWindow (820, 320, "Chip8 Virtual Machine");
-SetTargetFPS(120);
+    InitWindow (820, 320, "Chip8 Virtual Machine");
+    SetTargetFPS(120);
 
     while(!WindowShouldClose()) {
         BeginDrawing();
@@ -88,10 +87,6 @@ SetTargetFPS(120);
         EndDrawing();
     }
     CloseWindow();
-    
-
-
-
 
     return 0;
 }
