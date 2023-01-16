@@ -3,12 +3,28 @@
 Chip8 Interpreter written in C using Raylib for Graphics
 
 
-## Setup 
+## Build From Source
 ```bash
     git clone https://github.com/WuGambinos/chip-8.git
+```
+### Windows
+```bash
     cd chip-8
     mkdir build
-    cd build
+    cmake -G "MinGW Makefiles"..
+    make
+```
+### Mac OS
+```bash
+    cd chip-8
+    mkdir build
+    cmake ..
+    make
+```
+### Linux 
+```bash
+    cd chip-8
+    mkdir build
     cmake ..
     make
 ```
@@ -18,18 +34,21 @@ Chip8 Interpreter written in C using Raylib for Graphics
 ### Windows
 ```bash
     cd chip-8
+    cd build
     ./chip8 ../roms/Fishie.ch8
 ```
 
 ### Mac OS
 ```bash
     cd chip-8
+    cd build
     ./chip8 ../roms/Fishie.ch8
 ```
 
 ### Linux 
 ```bash
     cd chip-8
+    cd build
     ./chip8 ../roms/Fishie.ch8
 ```
 
