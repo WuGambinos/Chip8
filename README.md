@@ -7,13 +7,20 @@ Chip8 Interpreter written in C using Raylib for Graphics
 ```bash
     git clone https://github.com/WuGambinos/chip-8.git
 ```
+
+### Requirements
+    - make
+    - gcc 
+    - MinGW (Windows)
+
 ### Windows
 ```bash
     cd chip-8
     mkdir build
     cmake -G "MinGW Makefiles"..
-    make
+    mingw32-make
 ```
+
 ### Mac OS
 ```bash
     cd chip-8
@@ -21,6 +28,7 @@ Chip8 Interpreter written in C using Raylib for Graphics
     cmake ..
     make
 ```
+
 ### Linux 
 ```bash
     cd chip-8
