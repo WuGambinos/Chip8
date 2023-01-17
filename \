@@ -24,7 +24,8 @@
 
 #define SCREEN_WIDTH 840
 #define SCREEN_HEIGHT 320 
-#define FPS 60
+#define FPS
+
 
 int main(int argc, char **argv) {
     
@@ -57,7 +58,7 @@ int main(int argc, char **argv) {
     //RAYLIB
 
     InitWindow (SCREEN_WIDTH, SCREEN_HEIGHT, "Chip8 Virtual Machine");
-    SetTargetFPS(FPS);
+    SetTargetFPS(120);
 
     while(!WindowShouldClose()) {
         BeginDrawing();

@@ -24,15 +24,24 @@
 #ifndef CHIP8_CHIP8_H
 #define CHIP8_CHIP8_H
 
+#define MEMORY_SIZE 4096
+#define DISPLAY_WIDTH 64
+#define DISPLAY_HEIGHT 32
+#define DISPLAY_SIZE DISPLAY_HEIGHT * DISPLAY_WIDTH
+#define STACK_SIZE 16
+#define NUM_KEYS 16 
+#define NUM_REGISTERS 16
+
+
 /* Struct which defines the Chip8 System */
 typedef struct Chip8
 {
 
     //Memory
-    uint8_t memory[4096];
+    uint8_t memory[MEMORY_SIZE];
 
     //Display
-    uint8_t display[64 * 32];
+    uint8_t display[DISPLAY_SIZE];
 
     //Program Counter
     uint16_t pc;
@@ -41,7 +50,7 @@ typedef struct Chip8
     uint16_t I;
 
     //Stack
-    uint16_t stack[16];
+    uint16_t stack[STACK_SIZE];
 
     //Stack Pointer
     uint16_t sp;
@@ -56,10 +65,10 @@ typedef struct Chip8
     uint16_t opcode;
 
     //Keys
-    uint8_t key[16];
+    uint8_t key[NUM_KEYS];
 
     //General Purpose Registers V0 - VF
-    uint8_t V[16];
+    uint8_t V[NUM_REGISTERS];
 
     //Halt flag
     uint8_t halt;
@@ -82,7 +91,7 @@ typedef struct Chip8
  * f: File Object created using rom file
  * fsize: size of the file
  */
-void loadProgram(Chip8* state, FILE *f, int fsize);
+void loadProgram(Chip8* s, FILE *f, int fsize);
 
 
 /*

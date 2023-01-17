@@ -23,13 +23,12 @@
 #include <stdlib.h>
 #include "../include/disassemble.h"
 
+#define RECT_SIZE 10
+
 /*
  * Function: InitChip8
  * -------------------
  * Initializes the Chip8 System
- * 
- * 
- * 
  */
 Chip8* InitChip8(void)
 {
@@ -42,10 +41,10 @@ Chip8* InitChip8(void)
     //Reset current opcode
     s -> opcode = 0;   
 
-    //Reset index register
+    //Reset stack pointer
     s -> sp = 0;
 
-    //Reset stack pointer
+    //Reset index register 
     s -> I = 0;
 
     //Clear halt flag
@@ -67,193 +66,37 @@ Chip8* InitChip8(void)
 
 void checkKeys(Chip8 *s)
 {
-    if(IsKeyPressed(KEY_ONE) || IsKeyDown(KEY_ONE))
-    {
-        s -> key[0x1] = 1;
-    }
-
-    else
-    {
-        s -> key[0x1] = 0;
-
-    }
-
-
-
-    if(IsKeyPressed(KEY_TWO) || IsKeyDown(KEY_TWO))
-    {
-        s -> key[0x2] = 1;
-
-    }
-
-    else
-    {
-        s -> key[0x2] = 0;
-
-    }
-
-    if(IsKeyPressed(KEY_THREE) || IsKeyDown(KEY_THREE))
-    {
-        s -> key[0x3] = 1;
-    }
-
-    else
-    {
-        s -> key[0x3] = 0;
-    }
-
-    if(IsKeyPressed(KEY_FOUR) || IsKeyDown(KEY_FOUR))
-    {
-        s -> key[0xC] = 1;
-
-    }
-
-    else
-    {
-        s -> key[0xC] = 0;
-
-    }
-
-    if(IsKeyPressed(KEY_Q) || IsKeyDown(KEY_Q))
-    {
-        s -> key[0x4] = 1;
-    }
-
-    else
-    {
-        s -> key[0x4] = 0;
-    }
-
-    if(IsKeyPressed(KEY_W) || IsKeyDown(KEY_W))
-    {
-        s -> key[0x5] = 1;
-    }
-
-    else
-    {
-        s -> key[0x5] = 0;
-    }
-
-    if(IsKeyPressed(KEY_E) || IsKeyDown(KEY_E))
-    {
-        s -> key[0x6] = 1;
-    }
-
-    else
-    {
-        s -> key[0x6] = 0;
-    }
-
-    if(IsKeyPressed(KEY_R) || IsKeyDown(KEY_R))
-    {
-        s -> key[0xD] = 1;
-    }
-
-    else
-    {
-        s -> key[0xD] = 0;
-    }
-
-    if(IsKeyPressed(KEY_A) || IsKeyDown(KEY_A))
-    {
-        s -> key[0x7] = 1;
-    }
-
-    else
-    {
-        s -> key[0x7] = 0;
-
-    }
-
-    if(IsKeyPressed(KEY_S) || IsKeyDown(KEY_S))
-    {
-        s -> key[0x8] = 1;
-
-    }
-
-    else
-    {
-        s -> key[0x8] = 0;
-
-    }
-
-    if(IsKeyPressed(KEY_D) || IsKeyDown(KEY_D))
-    {
-        s -> key[0x9] = 1;
-    }
-
-    else
-    {
-        s -> key[0x9] = 0;
-
-    }
-
-    if(IsKeyPressed(KEY_F) || IsKeyDown(KEY_F))
-    {
-        s -> key[0xE] = 1;
-    }
-
-    else
-    {
-        s -> key[0xE] = 0;
-    }
-
-    if(IsKeyPressed(KEY_Z) || IsKeyDown(KEY_Z))
-    {
-        s -> key[0xA] = 1;
-    }
-
-    else
-    {
-        s -> key[0xA] = 0;
-    }
-
-    if(IsKeyPressed(KEY_X) || IsKeyDown(KEY_X))
-    {
-        s -> key[0x0] = 1;
-    }
-
-    else
-    {
-        s -> key[0x0] = 0;
-    }
-
-    if(IsKeyPressed(KEY_C) || IsKeyDown(KEY_C))
-    {
-        s -> key[0xB] = 1;
-    }
-
-    else
-    {
-        s -> key[0xB] = 0;
-    }
-
-    if(IsKeyPressed(KEY_V) || IsKeyDown(KEY_V))
-    {
-        s -> key[0xF] = 1;
-    }
-
-    else
-    {
-        s -> key[0xF] = 0;
-    }
-
-
+    s -> key[0x1] = IsKeyPressed(KEY_ONE)   || IsKeyDown(KEY_ONE);
+    s -> key[0x2] = IsKeyPressed(KEY_TWO)   || IsKeyDown(KEY_TWO);
+    s -> key[0x3] = IsKeyPressed(KEY_THREE) || IsKeyDown(KEY_THREE);
+    s -> key[0xC] = IsKeyPressed(KEY_FOUR)  || IsKeyDown(KEY_FOUR);
+    s -> key[0x4] = IsKeyPressed(KEY_Q)     || IsKeyDown(KEY_Q);
+    s -> key[0x5] = IsKeyPressed(KEY_W)     || IsKeyDown(KEY_W);
+    s -> key[0x6] = IsKeyPressed(KEY_E)     || IsKeyDown(KEY_E);
+    s -> key[0xD] = IsKeyPressed(KEY_R)     || IsKeyDown(KEY_R);
+    s -> key[0x7] = IsKeyPressed(KEY_A)     || IsKeyDown(KEY_A);
+    s -> key[0x8] = IsKeyPressed(KEY_S)     || IsKeyDown(KEY_S);
+    s -> key[0x9] = IsKeyPressed(KEY_D)     || IsKeyDown(KEY_D);
+    s -> key[0xE] = IsKeyPressed(KEY_F)     || IsKeyDown(KEY_F);
+    s -> key[0xA] = IsKeyPressed(KEY_Z)     || IsKeyDown(KEY_Z);
+    s -> key[0x0] = IsKeyPressed(KEY_X)     || IsKeyDown(KEY_X);
+    s -> key[0xB] = IsKeyPressed(KEY_C)     || IsKeyDown(KEY_C);
+    s -> key[0xF] = IsKeyPressed(KEY_V)     || IsKeyDown(KEY_V);
 }
 
 void drawGraphics(Chip8* s)
 { 
-    for (int y = 0; y < 32; ++y) 
+    for (int y = 0; y < DISPLAY_HEIGHT; ++y) 
     {
-        for (int x = 0; x < 64; ++x) 
+        for (int x = 0; x < DISPLAY_WIDTH; ++x) 
         {
-            if (s -> display[ (y * 64) + x] != 0) 
+            if (s -> display[ (y * DISPLAY_WIDTH) + x] != 0) 
             {
-                DrawRectangle (x * 10, y * 10, 10, 10, WHITE);
+                DrawRectangle(x * RECT_SIZE, y * RECT_SIZE, RECT_SIZE, RECT_SIZE, WHITE);
             } 
             else 
             {
-                DrawRectangle (x * 10, y * 10, 10, 10, BLACK);
+                DrawRectangle(x * RECT_SIZE, y * RECT_SIZE, RECT_SIZE, RECT_SIZE, BLACK);
             }
         }
 	}
@@ -266,7 +109,6 @@ void printState(Chip8* s)
     printRegisters(s);
     printStack(s);
     printTimers(s);
-
 }
 
 void printTimers(Chip8* s)
@@ -274,33 +116,30 @@ void printTimers(Chip8* s)
     printf("Delay Timer: %X\n", s -> delay_timer);
     printf("Sound Timer: %X\n", s -> sound_timer);
     printf("\n");
-
 }
+
 //Print Stack
 void printStack(Chip8* s)
 {
-    int size = 16;
     printf("STACK\n");
-    for(int i = 0; i< size; i++)
+    for(int i = 0; i< STACK_SIZE; i++)
     {
         printf("Stack[%X] = %X \n", i, s -> stack[i]);
     }
 
     printf("\n");
-
 }
+
 //Print Registers of Chip
 void printRegisters(Chip8* s)
 {
     printf("REGISTERS\n");
-    int size = 0xF;
-    for(int i = 0; i < size; i++)
+    for(int i = 0; i < NUM_REGISTERS; i++)
     {
         printf("V[%X] = %X \n", i, s -> V[i]);
     }
 
     printf("\n");
-
 }
 
 //Load Program into memory
@@ -312,7 +151,7 @@ void loadProgram(Chip8* s, FILE *f, int fsize)
     fread(buffer+0x200, fsize, 1, f);
     fclose(f);
 
-    //Load file from buffer into chip memory
+    //Load file from buffer into chip memory starting from 0x200
     for(int i = 0; i < fsize; i++)
     {
         s ->memory[i+0x200] = buffer[i+0x200];
@@ -320,16 +159,17 @@ void loadProgram(Chip8* s, FILE *f, int fsize)
 
 }
 
-//Fetch opcode
-//decode opcode
-//execute opcode
+/*
+* Fetch opcode
+* Decode opcode
+* Execute opcode
+*/
 void emulateCycle(Chip8* s)
 {
     //Opcode
     uint16_t opcode = (s -> memory[s -> pc] << 8) | (s -> memory[(s -> pc) + 1]);
-    //printf("%04X\n\n", (opcode));
 
-    //FirstByte of the Opcode
+    //First Byte of the Opcode
     uint16_t firstByte = opcode & 0xF000;
 
 
@@ -346,17 +186,14 @@ void emulateCycle(Chip8* s)
             Op1(s, opcode);
             break;
             
-
         case 0x2000:
             Op2(s, opcode);
             break;
-
 
         //Skip if VX == NN
         case 0x3000:
             Op3(s, opcode);
             break;
-
 
         //Skip if VX != NN
         case 0x4000:
@@ -368,11 +205,10 @@ void emulateCycle(Chip8* s)
             Op5(s, opcode);
             break;
 
-            //Store NN in VX
+        //Store NN in VX
         case 0x6000:
             Op6(s, opcode);
             break;
-
 
         //Add the value NN to register VX
         case 0x7000:
