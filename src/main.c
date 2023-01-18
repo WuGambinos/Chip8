@@ -24,7 +24,7 @@
 
 #define SCREEN_WIDTH 840
 #define SCREEN_HEIGHT 320 
-#define FPS 60
+#define FPS 500
 
 int main(int argc, char **argv) {
     
