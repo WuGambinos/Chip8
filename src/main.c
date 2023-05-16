@@ -53,9 +53,7 @@ int main(int argc, char **argv) {
     //Load Program
     loadProgram(chip, f ,fsize);
 
-
     //RAYLIB
-
     InitWindow (SCREEN_WIDTH, SCREEN_HEIGHT, "Chip8 Virtual Machine");
     SetTargetFPS(FPS);
 
@@ -73,16 +71,15 @@ int main(int argc, char **argv) {
             drawGraphics(chip);
         }
 
-        DrawText("Hello World", 700, 25, 15, WHITE);
-        sprintf(string, "PC: %X", chip -> pc);
+        sprintf(string, "PC: 0x%X", chip -> pc);
         DrawText(string, 700, 40, 10, WHITE);
 
-        sprintf(string, "SP: %X", chip -> sp);
+        sprintf(string, "SP: 0x%X", chip -> sp);
         DrawText(string, 700, 55,10, WHITE);
 
         for(int i = 0; i < 0xF; i++)
         {
-            sprintf(string, "V[%X] = %X", i, chip -> V[i]);
+            sprintf(string, "V[%X] = 0x%X", i, chip -> V[i]);
             DrawText(string, 700, 70 + (i * 10), 10, WHITE);
         }
 
