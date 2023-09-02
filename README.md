@@ -1,6 +1,6 @@
-# Chip8
+# CHIP-8
 
-Chip8 Interpreter written in C using Raylib for Graphics
+CHIP-8 interpreter written in C using Raylib for graphics
 
 
 ## Build From Source
@@ -43,24 +43,22 @@ Chip8 Interpreter written in C using Raylib for Graphics
 ```bash
     cd chip-8
     cd build
-    ./chip8 ../roms/Fishie.ch8
+    ./chip8 path/to/rom
 ```
 
 ### Mac OS
 ```bash
     cd chip-8
     cd build
-    ./chip8 ../roms/Fishie.ch8
+    ./chip8 path/to/rom
 ```
 
 ### Linux 
 ```bash
     cd chip-8
     cd build
-    ./chip8 ../roms/Fishie.ch8
+    ./chip8 path/to/rom
 ```
-
-* Fishie.ch8 is just an example rom and can be replaced with any of the roms found in the roms folder
 
 ## TODO
 * Fix Documentation
