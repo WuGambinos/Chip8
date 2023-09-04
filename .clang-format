@@ -1,0 +1,9 @@
+# Format Style Options - Created with Clang Power Tools
+---
+BasedOnStyle: Google
+DerivePointerAlignment: false
+IndentCaseBlocks: false
+IndentWidth: 4
+SpaceAfterCStyleCast: true
+TabWidth: 4
+...

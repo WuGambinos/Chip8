@@ -1,6 +1,5 @@
-
-#ifndef CHIP8_DIS
-#define CHIP8_DIS
+#pragma once
+#include <stdint.h>
 
 /*
  * Function: DisassembleChip80p
@@ -9,6 +8,4 @@
  * codebuffer: buffer that holds the opcodes for the given rom
  * pc: Program Counter
  */
-void DisassembleChip8Op(uint8_t *codebuffer, int pc);
-
-#endif
+void dissasemble_opcodes(uint8_t* codebuffer, int pc);
