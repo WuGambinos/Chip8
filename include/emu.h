@@ -161,8 +161,7 @@ void printState(Chip8* s);
  *
  * s: pointer to Chip8 struct
  */
-
-void drawGraphics(Chip8* s);
+void drawGraphics(Chip8* s, int start_x, int start_y);
 
 /*
  * Function: checkKeys

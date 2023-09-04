@@ -22,3 +22,6 @@ build/PACKAGE.vcxproj.filters
 build/ZERO_CHECK.vcxproj
 build/ZERO_CHECK.vcxproj.filters
 build/
+clean.sh
+Chip8.make
+CMakeLists.txt
