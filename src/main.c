@@ -30,13 +30,8 @@ int main(int argc, char** argv) {
     const int SCREEN_WIDTH = 800;
     const int SCREEN_HEIGHT = 600;
     const int FPS = 500;
-    bool main_window_open = true;
-    bool emu_window_open = true;
-    bool debug_window_open = true;
-
-    Rectangle main_window = (Rectangle){0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
-    Rectangle emu_window = (Rectangle){200, 200, 432, 216};
-    Rectangle debug_window = (Rectangle){700, 20, 100, 300};
+    bool main_window = true;
+    bool emu_window = true;
 
     char debug_strings[100];
 
@@ -59,8 +54,6 @@ int main(int argc, char** argv) {
     SetConfigFlags(FLAG_WINDOW_UNDECORATED);
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Chip8 Virtual Machine");
 
-    GuiLoadStyle("styles/dark.rgs");
-
     SetTargetFPS(FPS);
 
     while (!WindowShouldClose()) {
@@ -73,15 +66,13 @@ int main(int argc, char** argv) {
 
         // raygui: controls drawing
         //----------------------------------------------------------------------------------
-        if (main_window_open) {
-            main_window_open = !GuiWindowBox(main_window, "Main Window");
+        if (main_window) {
+            main_window = !GuiWindowBox(
+                (Rectangle){0, 0, SCREEN_WIDTH, SCREEN_HEIGHT}, "Main Window");
         }
-        if (emu_window_open) {
-            emu_window_open = !GuiWindowBox(emu_window, "Screen");
-        }
-
-        if (debug_window_open) {
-            debug_window_open = !GuiWindowBox(debug_window, "Debug");
+        if (emu_window) {
+            emu_window =
+                !GuiWindowBox((Rectangle){200, 200, 432, 216}, "Screen");
         }
 
         emulate_cycle(chip);
@@ -92,14 +83,14 @@ int main(int argc, char** argv) {
         }
 
         sprintf(debug_strings, "PC: 0x%X", chip->pc);
-        DrawText(debug_strings, 700, 50, 10, WHITE);
+        DrawText(debug_strings, 700, 40, 10, RED);
 
         sprintf(debug_strings, "SP: 0x%X", chip->sp);
-        DrawText(debug_strings, 700, 65, 10, WHITE);
+        DrawText(debug_strings, 700, 55, 10, RED);
 
         for (int i = 0; i < 0xF; i++) {
             sprintf(debug_strings, "V[%X] = 0x%X", i, chip->V[i]);
-            DrawText(debug_strings, 700, 90 + (i * 10), 10, WHITE);
+            DrawText(debug_strings, 700, 70 + (i * 10), 10, RED);
         }
 
         EndDrawing();

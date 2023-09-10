@@ -2,9 +2,7 @@ workspace "Chip8"
     configurations {"Debug", "Release"}
 
 project "Chip8"
-    links {"raylib"}
-    links {"m"}
-    links {"dl"}
+    links {"raylib",  "m", "dl", "SDL2"}
     kind "WindowedApp"
     language "C"
     cdialect "C11"
